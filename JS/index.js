@@ -12,8 +12,7 @@ const getFavouritesBtn = document.getElementById("getFavouritesBtn");
 
 
 // Set the default headers for Axios
-axios.defaults.headers.common['live_yGzn8oxKIvM4mLaRFkOG5KPVIpgC0km05WnF93GCCXhftbwG5YipsBiovpSoJ27A'] = 'YOUR_CAT_API_KEY';
-
+axios.defaults.headers.common['x-api-key'] = 'YOUR_CAT_API_KEY';
 
 // Step 0: Store your API key here for reference and easy access.
 const API_KEY = "";

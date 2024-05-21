@@ -161,6 +161,34 @@ axios.interceptors.request.use(config => {
  *   with for future projects.
  */
 
+
+
+// In the request interceptor
+axios.interceptors.request.use(config => {
+    progressBar.style.width = '0%'; // Reset progress bar
+    return config;
+  }, error => {
+    console.error('Error starting request:', error);
+    return Promise.reject(error);
+  });
+  
+  // Create a function to update the progress bar
+  function updateProgress(event) {
+    const percentCompleted = Math.round((event.loaded * 100) / event.total);
+    progressBar.style.width = percentCompleted + '%';
+  }
+  
+  // Pass the updateProgress function to the axios onDownloadProgress config option
+  axios.interceptors.request.use(config => {
+    config.onDownloadProgress = updateProgress;
+    return config;
+  }, error => {
+    console.error('Error starting request:', error);
+    return Promise.reject(error);
+  });
+  
+
+
 /**
  * 7. As a final element of progress indication, add the following to your axios interceptors:
  * - In your request interceptor, set the body element's cursor style to "progress."

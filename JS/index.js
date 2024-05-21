@@ -190,17 +190,34 @@ axios.interceptors.request.use(config => {
  *   once or twice per request to this API. This is still a concept worth familiarizing yourself
  *   with for future projects.
  */
-
-
-
-
-
-
 /**
  * 7. As a final element of progress indication, add the following to your axios interceptors:
  * - In your request interceptor, set the body element's cursor style to "progress."
  * - In your response interceptor, remove the progress cursor style from the body element.
  */
+
+
+
+export async function favourite(imgId) {
+    try {
+      const existingFavourite = false; // Check if the image is already favourited (you need to implement this logic)
+  
+      if (existingFavourite) {
+        // If already favourited, delete the favourite
+        await axios.delete(`https://api.thecatapi.com/v1/favourites/${imgId}`);
+        console.log('Favourite removed:', imgId);
+      } else {
+        // If not favourited, add it to favourites
+        await axios.post('https://api.thecatapi.com/v1/favourites', { image_id: imgId });
+        console.log('Favourited:', imgId);
+      }
+    } catch (error) {
+      console.error('Error favouriting image:', error);
+    }
+  }
+  
+
+
 
 /**
  * 8. To practice posting data, we'll create a system to "favourite" certain images.

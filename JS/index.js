@@ -113,6 +113,31 @@ breedSelect.addEventListener('change', async () => {
  *   by setting a default header with your API key so that you do not have to
  *   send it manually with all of your requests! You can also set a default base URL!
  */
+
+
+// Request interceptor
+axios.interceptors.request.use(config => {
+    console.log('Request started:', config);
+    document.body.style.cursor = 'progress'; // Set cursor to progress
+    return config;
+  }, error => {
+    console.error('Error starting request:', error);
+    return Promise.reject(error);
+  });
+  
+  // Response interceptor
+  axios.interceptors.response.use(response => {
+    console.log('Request finished:', response.config);
+    document.body.style.cursor = 'default'; // Set cursor back to default
+    return response;
+  }, error => {
+    console.error('Error getting response:', error);
+    document.body.style.cursor = 'default'; // Set cursor back to default in case of error
+    return Promise.reject(error);
+  });
+  
+
+
 /**
  * 5. Add axios interceptors to log the time between request and response to the console.
  * - Hint: you already have access to code that does this!

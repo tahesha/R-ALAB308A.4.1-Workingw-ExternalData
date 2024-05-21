@@ -234,6 +234,32 @@ export async function favourite(imgId) {
   // your code here
 }
 
+
+
+
+getFavouritesBtn.addEventListener('click', async () => {
+    try {
+      Carousel.clear(); // Clear the carousel
+  
+      const response = await axios.get('https://api.thecatapi.com/v1/favourites');
+      const favourites = response.data;
+      favourites.forEach(favourite => {
+        const { image: { url }, id } = favourite;
+        const carouselItem = Carousel.createCarouselItem(url, '', id);
+        Carousel.appendCarousel(carouselItem);
+      });
+  
+      // You can customize the information displayed if needed
+      infoDump.innerHTML = `<h3>Favourites:</h3>
+                            <p>Number of Favourites: ${favourites.length}</p>`;
+  
+      Carousel.start(); // Restart the carousel
+    } catch (error) {
+      console.error('Error getting favourites:', error);
+    }
+  });
+  
+
 /**
  * 9. Test your favourite() function by creating a getFavourites() function.
  * - Use Axios to get all of your favourites from the cat API.

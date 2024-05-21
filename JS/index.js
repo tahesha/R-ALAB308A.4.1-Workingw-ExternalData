@@ -27,6 +27,36 @@ const API_KEY = "";
  * This function should execute immediately.
  */
 
+
+
+
+async function initialLoad() {
+    try {
+      // 1. Retrieve a list of breeds from the Cat API
+      const response = await axios.get('https://api.thecatapi.com/v1/breeds');
+  
+      // 2. Create new <options> for each breed and append them to breedSelect
+      const breeds = response.data;
+      breeds.forEach(breed => {
+        const option = document.createElement('option');
+        option.value = breed.id;
+        option.text = breed.name;
+        breedSelect.appendChild(option);
+      });
+  
+      // 3. Create the initial carousel
+      breedSelect.dispatchEvent(new Event('change')); // Trigger event handler for initial selection
+    } catch (error) {
+      console.error('Error loading breeds:', error);
+    }
+  }
+  
+  // Call initialLoad to execute immediately
+  initialLoad();
+  
+
+
+
 /**
  * 2. Create an event handler for breedSelect that does the following:
  * - Retrieve information on the selected breed from the cat API using fetch().

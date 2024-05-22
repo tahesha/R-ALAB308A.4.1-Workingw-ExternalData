@@ -10,7 +10,9 @@ const progressBar = document.getElementById("progressBar");
 // The get favourites button element.
 const getFavouritesBtn = document.getElementById("getFavouritesBtn");
 
-
+//Added connection to .env file - first time using this process
+request("dotenv").config();
+console.log(process.env.API_KEY);
 // Set the default headers for Axios
 axios.defaults.headers.common['x-api-key'] = 'YOUR_CAT_API_KEY';
 
